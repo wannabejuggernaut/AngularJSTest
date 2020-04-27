@@ -1,0 +1,142 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<style type="text/css">
+    ul#nav {
+        border: 5px solid black;
+    }
+
+        ul#nav li {
+            display: inline-block;
+            position: static;
+        }
+</style>
+<body>
+
+    <div ng-app="myApp" ng-controller="testController">
+
+        <ul id="nav">
+            <li>
+                <select title="Font-size" ng-model="selectedFontSize">
+                    <option value="">select font</option>
+                    <option value="10px">10</option>
+                    <option value="12px">12</option>
+                    <option value="14px">14</option>
+                    <option value="16px">16</option>
+                    <option value="18px">18</option>
+                    <option value="20px">20</option>
+                    <option value="22px">22</option>
+                    <option value="24px">24</option>
+                    <option value="26px">26</option>
+                    <option value="28px">28</option>
+                    <option value="30px">30</option>
+                    <option value="32px">32</option>
+                    <option value="34px">34</option>
+                    <option value="36px">36</option>
+                    <option value="38px">38</option>
+                    <option value="40px">40</option>
+                </select>
+            </li>
+            <li>
+                <select title="Font-color" ng-model="Color">
+                    <option value="">select color</option>
+                    <option value="White">White</option>
+                    <option value="Silver">Silver</option>
+                    <option value="Gray">Gray</option>
+                    <option value="Black">Black</option>
+                    <option value="Red">Red</option>
+                    <option value="Maroon">Maroon</option>
+                    <option value="Yellow">Yellow</option>
+                    <option value="Olive">Olive</option>
+                    <option value="Lime">Lime</option>
+                    <option value="Green">Green</option>
+                    <option value="Aqua">Aqua</option>
+                    <option value="Teal">Teal</option>
+                    <option value="Blue">Blue</option>
+                    <option value="Navy">Navy</option>
+                    <option value="Fuchsia">Fuchsia</option>
+                    <option value="Purple">Purple</option>
+                </select>
+            </li>
+            <li>
+                <select title="Font-color" ng-model="fontStyle">
+                    <option value="">select fontstyle</option>
+                    <option style="font-weight:bold;" value="Bold">Bold</option>
+                    <option style="font-style:italic;" value="Italic">Italic</option>
+                    <option style="text-decoration:underline;" value="Underline">Underline</option>
+                </select>
+            </li>
+            <li>
+                <button ng-click="displayfontInfo()" style="font-style:italic;margin-top:-20px;border:none;">i</button>
+            </li>
+            <li>
+                <select title="choose-language" ng-model="languageSelected" ng-change="changeLanguage()">
+                    <option value="en">select language</option>
+                    <option value="en">English</option>
+                    <option value="zh">Chinese</option>
+                    <option value="hi">Hindi</option>
+                </select>
+            </li>
+            <li>
+                <button ng-click="displayChangeLanguageInfo()" style="font-style:italic;margin-top:-20px;border:none;">i</button>
+            </li>
+        </ul>
+
+
+
+        <div id="PageContent" ng-style="{'font-size': selectedFontSize,'color':Color,'font-style':fontStyle,'font-weight':fontStyle,'text-decoration':fontStyle}">
+            <p id="paragraph1">
+                {{'PageContent' | translate}}
+            </p>
+        </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-translate/2.18.2/angular-translate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-translate/2.18.2/angular-translate-loader-url/angular-translate-loader-url.min.js"></script>
+    <script></script>
+    <script type="text/javascript">
+
+        var app = angular.module('myApp', ['pascalprecht.translate']);
+        app.config(['$translateProvider', function ($translateProvider) {
+            $translateProvider
+                .useUrlLoader('https://beta.thisisdrum.com/api/v1/language/en_GB/csp')
+                .translations('zh', {
+                    'PageContent': `创建具有静态内容的页面，包括标题，段落，正文，超链接等功能。使用AngularJS可以：<br />
+                        1.实施工具栏，用户可以在其中修改各个功能的字体大小，标准字体，样式（粗体，斜体，下划线）。<br />
+                        2.从三种给定语言（英语，中文和印地语）的列表中为用户创建一个选项，以在静态内容的语言之间进行切换。<br />
+                        3.在字体工具栏/语言选择器中添加一个“ i”符号，单击该符号可显示用户如何与这些功能进行交互的弹出窗口。`
+                })
+                .translations('en', {
+                    'PageContent': `Create a page with static content including features like titles, paragraphs, body, hyperlinks etc. Use AngularJS to: <br />
+                        1. Implement a toolbar where the user can modify font size, cor, style (bold, italics, underline) for all of the features individually.<br />
+                        2. Create an option for a user to switch between languages of the static content, from a list of 3 given languages: English, Chinese and Hindi.<br />
+                        3. Add an 'i' symbol in the font toolbar/language selector which when clicked shows a popup of how a user can interact with these features.`
+                })
+                .translations('hi', {
+                    'PageContent': `शीर्षक, पैराग्राफ, शरीर, हाइपरलिंक आदि जैसी स्थिर सामग्री के साथ एक पृष्ठ बनाएँ: AngularJS का उपयोग करें: <br />
+                         1. एक टूलबार को लागू करें जहां उपयोगकर्ता व्यक्तिगत रूप से सभी सुविधाओं के लिए फ़ॉन्ट आकार, कोर, शैली (बोल्ड, इटैलिक्स, रेखांकित) को संशोधित कर सकता है। <br />
+                         2. दी गई 3 भाषाओं की सूची से उपयोगकर्ता के लिए स्थैतिक सामग्री के बीच स्विच करने के लिए एक विकल्प बनाएं: अंग्रेजी, चीनी और हिंदी। <br/>
+                         3. फ़ॉन्ट टूलबार / भाषा चयनकर्ता में एक 'i' प्रतीक जोड़ें, जिस पर क्लिक करने पर पॉपअप दिखाता है कि उपयोगकर्ता इन सुविधाओं के साथ कैसे सहभागिता कर सकता है।`
+                })
+                .preferredLanguage('en');
+        }]);
+        app.controller('testController', function ($scope, $translate) {
+            $scope.selectedFontSize = "10px";
+            $scope.languageSelected = "en";
+            $scope.displayfontInfo = function () {
+                alert("There are 3 dropdowns, help in modifying the font-size, font-color and font style.");
+            };
+            $scope.displayChangeLanguageInfo = function () {
+                alert("the dropdown next to the left of this icon, will help you in changing the language.");
+            };
+            $scope.changeLanguage = function () {
+                $translate.use($scope.languageSelected);
+            };
+        });
+
+    </script>
+</body>
